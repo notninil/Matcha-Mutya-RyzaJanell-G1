@@ -20,6 +20,7 @@
           <a href="{% url 'owner_dashboard' %}">Owner dashboard</a>
           <a href="{% url 'owner_dashboard' %}#business">Business overview</a>
         {% endif %}
+        <a href="{% url 'profile' %}">My profile</a>
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}<button class="secondary">Log out</button>
         </form>

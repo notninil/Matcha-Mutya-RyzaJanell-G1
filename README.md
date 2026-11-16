@@ -54,3 +54,7 @@ owner.save(update_fields=["role"])
 Sign in as each account in separate browser sessions to compare dashboards and try opening the other dashboard's URL. Café discovery, saved places, listings, and menu management are marked as planned features; this milestone provides the account dashboards and access controls.
 
 The test suite covers registration validation, role assignment, login routing, role-specific rendering, cross-role access denial, invalid credentials, and logout.
+
+## User profiles
+
+After logging in, choose **My profile** in the navigation or visit `/profile/`. Both roles can view their own details and update their first name, last name, email, and contact number. Email addresses must be valid and unique regardless of case. Username and role are read-only. The server always uses the signed-in user; submitted account IDs and privilege fields cannot select another profile or change permissions. There are no public or per-user profile URLs. Profile tests cover anonymous access, updates, validation, account isolation, and CSRF protection.

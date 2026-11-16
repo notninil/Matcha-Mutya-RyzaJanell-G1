@@ -26,3 +26,18 @@ class RegistrationForm(UserCreationForm):
         return clean_email(self)
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email", "contact_number"]
+        widgets = {
+            "first_name": forms.TextInput(attrs={"autocomplete": "given-name"}),
+            "last_name": forms.TextInput(attrs={"autocomplete": "family-name"}),
+            "email": forms.EmailInput(attrs={"autocomplete": "email"}),
+            "contact_number": forms.TextInput(attrs={"autocomplete": "tel", "type": "tel"}),
+        }
+
+    def clean_email(self):
+        return clean_email(self)
+
+

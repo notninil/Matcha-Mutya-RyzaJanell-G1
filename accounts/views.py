@@ -5,8 +5,9 @@ from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.views.decorators.http import require_http_methods
 
-from .forms import RegistrationForm
+from .forms import ProfileForm, RegistrationForm
 from .models import User
 
 
@@ -40,6 +41,29 @@ def owner_dashboard(request):
     if request.user.role != User.Role.OWNER:
         raise PermissionDenied
     return render(request, "owner_dashboard.html", {"title": "Café Owner dashboard"})
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def profile(request):
+    form = ProfileForm(
+        request.POST if request.method == "POST" else None, instance=request.user,
+    )
+    if request.method == "POST" and form.is_valid():
+        try:
+            with transaction.atomic():
+                form.save()
+        except IntegrityError:
+            # Handle an email claimed after validation by a concurrent request.
+            if not User.objects.filter(email__iexact=form.cleaned_data["email"]).exclude(
+                pk=request.user.pk,
+            ).exists():
+                raise
+            form.add_error("email", "This email address is already registered.")
+        else:
+            messages.success(request, "Your profile has been updated.")
+            return redirect("profile")
+    return render(request, "profile.html", {"form": form, "title": "My profile"})
 
 
 def register(request):
