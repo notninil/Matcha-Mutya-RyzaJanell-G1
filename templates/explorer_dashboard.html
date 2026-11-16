@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="role">Explorer</p>
+  <h1>Welcome, {{ user.username }}.</h1>
+  <p>Your next matcha discovery starts here.</p>
+  <a class="button" href="#explore">Explore your trail</a>
+</section>
+<div class="grid">
+  <section class="panel" id="explore">
+    <h2>Your matcha trail</h2>
+    <p>Discover new matcha spots and plan your next café visit.</p>
+    <p>Café discovery and saved places are coming soon.</p>
+  </section>
+  <section class="panel">
+    <h2>Your Explorer account</h2>
+    <dl>
+      <dt>Username</dt><dd>{{ user.username }}</dd>
+      <dt>Email</dt><dd>{{ user.email }}</dd>
+      <dt>Role</dt><dd>{{ user.get_role_display }}</dd>
+    </dl>
+  </section>
+</div>
+{% endblock %}

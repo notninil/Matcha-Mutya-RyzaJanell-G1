@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Access denied{% endblock %}
+{% block layout %}narrow{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Access denied</h1>
+  <p>This dashboard is available only to users with the matching role.</p>
+  <a class="button" href="{% url 'dashboard' %}">Go to your dashboard</a>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block layout %}narrow{% endblock %}
+{% block content %}
+<section class="panel">
+  <h1>Welcome back</h1>
+  <p>Log in to open your MatchaTrail dashboard.</p>
+  <form method="post" class="account-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Log in</button>
+  </form>
+  <p>New to MatchaTrail? <a href="{% url 'register' %}">Create an Explorer account</a>.</p>
+</section>
+{% endblock %}

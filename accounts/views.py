@@ -1,8 +1,45 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError, transaction
 from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from .forms import RegistrationForm
+from .models import User
+
+
+class RoleLoginView(LoginView):
+    template_name = "login.html"
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        # Always route by the stored role, even when a different next URL is supplied.
+        return reverse("dashboard")
+
+
+@login_required
+def dashboard(request):
+    if request.user.role == User.Role.EXPLORER:
+        return redirect("explorer_dashboard")
+    if request.user.role == User.Role.OWNER:
+        return redirect("owner_dashboard")
+    raise PermissionDenied
+
+
+@login_required
+def explorer_dashboard(request):
+    if request.user.role != User.Role.EXPLORER:
+        raise PermissionDenied
+    return render(request, "explorer_dashboard.html", {"title": "Explorer dashboard"})
+
+
+@login_required
+def owner_dashboard(request):
+    if request.user.role != User.Role.OWNER:
+        raise PermissionDenied
+    return render(request, "owner_dashboard.html", {"title": "Café Owner dashboard"})
 
 
 def register(request):

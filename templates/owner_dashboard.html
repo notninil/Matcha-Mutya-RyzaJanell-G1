@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="role">Café Owner</p>
+  <h1>Welcome, {{ user.username }}.</h1>
+  <p>Your home for your café's presence on MatchaTrail.</p>
+  <a class="button" href="#business">View business overview</a>
+</section>
+<div class="grid">
+  <section class="panel" id="business">
+    <h2>Your café business</h2>
+    <p>Help Explorers learn about your café and its matcha offerings.</p>
+    <p>Café listings and menu management are coming soon.</p>
+  </section>
+  <section class="panel">
+    <h2>Your owner account</h2>
+    <dl>
+      <dt>Username</dt><dd>{{ user.username }}</dd>
+      <dt>Email</dt><dd>{{ user.email }}</dd>
+      <dt>Role</dt><dd>{{ user.get_role_display }}</dd>
+    </dl>
+  </section>
+</div>
+{% endblock %}

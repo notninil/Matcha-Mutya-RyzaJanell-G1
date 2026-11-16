@@ -45,7 +45,15 @@ DATABASES = {"default": {
     "PORT": os.getenv("POSTGRES_PORT", "5432"),
     "OPTIONS": {"sslmode": os.getenv("POSTGRES_SSLMODE", "prefer")},
 }}
+if os.getenv("DJANGO_USE_SQLITE") == "1":
+    DATABASES = {"default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }}
 AUTH_USER_MODEL = "accounts.User"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "login"
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": f"django.contrib.auth.password_validation.{validator}"}
     for validator in (
