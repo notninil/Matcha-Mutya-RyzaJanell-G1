@@ -1,18 +1,20 @@
 {% extends "base.html" %}
-{% block layout %}narrow{% endblock %}
 {% block content %}
-<section class="panel">
-  <h1>My profile</h1>
-  <dl>
-    <dt>Username</dt><dd>{{ user.username }}</dd>
-    <dt>Role</dt><dd>{{ user.get_role_display }}</dd>
-  </dl>
-  <p>View and update your account details below.</p>
-  <form method="post" action="{% url 'profile' %}" class="account-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
-    <a href="{% url 'dashboard' %}">Back to dashboard</a>
-  </form>
-</section>
+<div class="page-heading"><div><p class="eyebrow">Account / Personal details</p><h1>My profile</h1><p class="intro">The details that make this account yours.</p></div><a class="text-link" href="{% url 'dashboard' %}">Back to dashboard <span aria-hidden="true">↗</span></a></div>
+<div class="profile-layout">
+  <aside class="profile-identity" aria-labelledby="identity-title">
+    <p class="eyebrow">Account information</p><h2 id="identity-title">Your identity.</h2>
+    <dl><dt>Account role</dt><dd class="role-name">{{ user.get_role_display }}</dd><dt>Username</dt><dd>{{ user.username }}</dd></dl>
+    <p class="muted">Your username and account role are managed separately from your personal details.</p>
+  </aside>
+  <section class="profile-editor" aria-labelledby="details-title">
+    <h2 id="details-title">Personal details</h2><p class="muted">Email is required. Your name and contact number are optional.</p>
+    {% if form.errors %}<div class="form-alert" role="alert"><p class="error-heading">Your changes haven't been saved.</p><p>Check the highlighted fields below.</p></div>{% endif %}
+    <form method="post" action="{% url 'profile' %}" class="account-form profile-form">
+      {% csrf_token %}
+      {% include "includes/form_fields.html" %}
+      <div class="form-actions"><button class="button" type="submit">Save changes <span aria-hidden="true">→</span></button><a href="{% url 'profile' %}">Discard changes</a></div>
+    </form>
+  </section>
+</div>
 {% endblock %}

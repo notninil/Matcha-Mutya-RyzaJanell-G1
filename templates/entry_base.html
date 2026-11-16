@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body_class %}entry-page{% endblock %}
+{% block layout %}entry-layout{% endblock %}
+{% block content %}
+<div class="entry-spread">
+  <section class="entry-form-section" aria-labelledby="entry-title">
+    <p class="eyebrow">{% block entry_eyebrow %}Your MatchaTrail account{% endblock %}</p>
+    {% block entry_form %}{% endblock %}
+  </section>
+  <aside class="entry-story" aria-label="About MatchaTrail">
+    <div class="story-top"><span>MatchaTrail</span><span aria-hidden="true">茶</span></div>
+    <div class="story-illustration" aria-hidden="true"><div class="tea-ring"></div><div class="tea-bowl"></div><span class="tea-stem"></span></div>
+    <div class="story-copy"><p class="eyebrow">A taste for discovery</p><p class="story-title">Find your<br> matcha moment.</p><p>A home for Explorers and the cafés<br> that make their day.</p></div>
+  </aside>
+</div>
+{% endblock %}

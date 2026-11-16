@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Access denied{% endblock %}
-{% block layout %}narrow{% endblock %}
 {% block content %}
-<section class="panel">
-  <h1>Access denied</h1>
-  <p>This dashboard is available only to users with the matching role.</p>
-  <a class="button" href="{% url 'dashboard' %}">Go to your dashboard</a>
+<section class="access-denied" aria-labelledby="denied-title">
+  <p class="eyebrow">403 / Access denied</p><h1 id="denied-title">A different trail.</h1>
+  <p class="intro">This dashboard belongs to another account role.</p>
+  <p>Your {% if user.is_authenticated %}{{ user.get_role_display }}{% else %}MatchaTrail{% endif %} account has its own space. Head back to continue.</p>
+  <a class="button" href="{% url 'dashboard' %}">Go to your dashboard <span aria-hidden="true">→</span></a>
 </section>
 {% endblock %}

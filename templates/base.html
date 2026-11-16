@@ -4,36 +4,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#193f32">
 <title>{% block title %}{{ title|default:"Account" }}{% endblock %} · MatchaTrail</title>
 <link rel="stylesheet" href="{% static 'account.css' %}">
 </head>
-<body>
-<header>
-  <nav aria-label="Main navigation">
-    <a class="brand" href="{% url 'dashboard' %}">MatchaTrail</a>
-    <div class="nav-links">
-      {% if user.is_authenticated %}
-        {% if user.role == 'explorer' %}
-          <a href="{% url 'explorer_dashboard' %}">Explorer dashboard</a>
-          <a href="{% url 'explorer_dashboard' %}#explore">Explore matcha</a>
-        {% elif user.role == 'owner' %}
-          <a href="{% url 'owner_dashboard' %}">Owner dashboard</a>
-          <a href="{% url 'owner_dashboard' %}#business">Business overview</a>
-        {% endif %}
-        <a href="{% url 'profile' %}">My profile</a>
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}<button class="secondary">Log out</button>
-        </form>
-      {% else %}
-        <a href="{% url 'login' %}">Log in</a>
-        <a href="{% url 'register' %}">Create account</a>
-      {% endif %}
-    </div>
-  </nav>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+<nav class="site-nav" aria-label="Main navigation">
+  <a class="brand" href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'register' %}{% endif %}">MatchaTrail<span aria-hidden="true">.</span></a>
+  <div class="nav-links">
+  {% with current=request.resolver_match.url_name %}
+  {% if user.is_authenticated %}
+    {% if user.role == 'explorer' %}
+      <a href="{% url 'explorer_dashboard' %}" {% if current == 'explorer_dashboard' %}aria-current="page"{% endif %}>Explorer dashboard</a>
+    {% elif user.role == 'owner' %}
+      <a href="{% url 'owner_dashboard' %}" {% if current == 'owner_dashboard' %}aria-current="page"{% endif %}>Owner dashboard</a>
+    {% endif %}
+    <a href="{% url 'profile' %}" {% if current == 'profile' %}aria-current="page"{% endif %}>My profile</a>
+    <form method="post" action="{% url 'logout' %}" class="logout-form">{% csrf_token %}<button class="button-quiet" type="submit">Log out <span aria-hidden="true">↗</span></button></form>
+  {% else %}
+    <a href="{% url 'login' %}" {% if current == 'login' %}aria-current="page"{% endif %}>Log in</a>
+    <a href="{% url 'register' %}" {% if current == 'register' %}aria-current="page"{% endif %}>Create account</a>
+  {% endif %}
+  {% endwith %}
+  </div>
+</nav>
 </header>
-<main class="{% block layout %}{% endblock %}">
-  {% for message in messages %}<p class="notice" role="status">{{ message }}</p>{% endfor %}
+<main id="main-content" class="site-main {% block layout %}{% endblock %}" tabindex="-1">
+  {% block messages %}{% for message in messages %}<div class="notice" role="status"><span class="notice-label">Saved</span><p>{{ message }}</p></div>{% endfor %}{% endblock %}
   {% block content %}{% endblock %}
 </main>
+<footer class="site-footer"><span>MatchaTrail</span><span>For the love of matcha.</span></footer>
 </body>
 </html>

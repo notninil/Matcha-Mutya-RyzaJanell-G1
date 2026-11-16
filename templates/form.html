@@ -1,12 +1,18 @@
-{% extends "base.html" %}
-{% block layout %}narrow{% endblock %}
-{% block content %}
-<section class="panel">
-  <h1>{{ title }}</h1>
-  <form method="post" class="account-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button>Create account</button>
-  </form>
-</section>
+{% extends "entry_base.html" %}
+{% block messages %}
+{% for message in messages %}
+<div class="notice registration-success" role="status"><div><span class="notice-label">Account created</span><p>{{ message }}</p></div><a class="button" href="{% url 'login' %}">Continue to log in <span aria-hidden="true">→</span></a></div>
+{% endfor %}
+{% endblock %}
+{% block entry_eyebrow %}Join MatchaTrail{% endblock %}
+{% block entry_form %}
+<h1 id="entry-title">Create an<br> Explorer account</h1>
+<p class="intro">Your next chapter starts here.</p>
+<form method="post" action="{% url 'register' %}" class="account-form">
+  {% csrf_token %}
+  <p class="form-note">All fields are required.</p>
+  {% include "includes/form_fields.html" %}
+  <button class="button full-width" type="submit">Create account <span aria-hidden="true">→</span></button>
+</form>
+<p class="entry-switch">Already an Explorer? <a href="{% url 'login' %}">Log in</a></p>
 {% endblock %}

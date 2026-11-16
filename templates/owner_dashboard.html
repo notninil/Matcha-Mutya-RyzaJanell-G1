@@ -1,24 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="hero">
-  <p class="role">Café Owner</p>
-  <h1>Welcome, {{ user.username }}.</h1>
-  <p>Your home for your café's presence on MatchaTrail.</p>
-  <a class="button" href="#business">View business overview</a>
-</section>
-<div class="grid">
-  <section class="panel" id="business">
-    <h2>Your café business</h2>
-    <p>Help Explorers learn about your café and its matcha offerings.</p>
-    <p>Café listings and menu management are coming soon.</p>
+<div class="page-heading"><div><p class="eyebrow">Café Owner / Workspace</p><h1>Your café, at a glance.</h1><p class="intro">Welcome, {{ user.first_name|default:user.username }}. Make yourself at home.</p></div><a class="button secondary" href="{% url 'profile' %}">Edit owner profile <span aria-hidden="true">↗</span></a></div>
+<div class="owner-workspace">
+  <section class="listing-section" id="business" aria-labelledby="business-title">
+    <div class="section-heading"><p class="eyebrow">Your listing</p><h2 id="business-title">Your café business</h2></div>
+    <div class="listing-empty"><span class="listing-symbol" aria-hidden="true">☷</span><h3>Your café's story starts here.</h3><p>Café listings and menu management are coming soon. No listing information is available in this milestone.</p></div>
   </section>
-  <section class="panel">
-    <h2>Your owner account</h2>
-    <dl>
-      <dt>Username</dt><dd>{{ user.username }}</dd>
-      <dt>Email</dt><dd>{{ user.email }}</dd>
-      <dt>Role</dt><dd>{{ user.get_role_display }}</dd>
-    </dl>
-  </section>
+  <aside class="owner-contact" aria-labelledby="contact-title">
+    <p class="eyebrow">Account contact</p><h2 id="contact-title">Behind the café.</h2>
+    <dl class="contact-details"><dt>Owner</dt><dd>{{ user.get_full_name|default:user.username }}</dd><dt>Email</dt><dd>{{ user.email }}</dd><dt>Contact number</dt><dd>{{ user.contact_number|default:"Not added yet" }}</dd></dl>
+    <a class="text-link" href="{% url 'profile' %}">Update contact details <span aria-hidden="true">→</span></a>
+  </aside>
 </div>
 {% endblock %}
