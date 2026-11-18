@@ -4,7 +4,7 @@
 <div class="owner-workspace">
   <section class="listing-section" id="business" aria-labelledby="business-title">
     <div class="section-heading"><p class="eyebrow">Your listing</p><h2 id="business-title">Your café business</h2></div>
-    <div class="listing-empty"><span class="listing-symbol" aria-hidden="true">☷</span><h3>Your café's story starts here.</h3><p>Café listings and menu management are coming soon. No listing information is available in this milestone.</p></div>
+    {% if cafes %}<ul class="owner-cafes">{% for cafe in cafes %}<li><h3>{{ cafe.name }}</h3><p class="muted">{{ cafe.address }}, {{ cafe.city }}</p><p>{{ cafe.checkin_count }} check-in{{ cafe.checkin_count|pluralize }}{% if cafe.avg_rating %} · average {{ cafe.avg_rating|floatformat:1 }}/5{% endif %}</p></li>{% endfor %}</ul><a class="text-link" href="{% url 'checkin_list' %}">See visitor check-ins <span aria-hidden="true">→</span></a>{% else %}<div class="listing-empty"><span class="listing-symbol" aria-hidden="true">☷</span><h3>Your café's story starts here.</h3><p>No café is linked to your account yet. Once one is assigned, its check-ins will show up here.</p></div>{% endif %}
   </section>
   <aside class="owner-contact" aria-labelledby="contact-title">
     <p class="eyebrow">Account contact</p><h2 id="contact-title">Behind the café.</h2>

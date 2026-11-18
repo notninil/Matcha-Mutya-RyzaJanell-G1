@@ -11,6 +11,6 @@
 </section>
 <section class="passport-section" id="passport" aria-labelledby="passport-title">
   <div class="passport-cover" aria-hidden="true"><span>MATCHATRAIL</span><span class="passport-word">Matcha<br>passport</span><span>A COLLECTION OF MOMENTS</span></div>
-  <div class="passport-copy"><p class="eyebrow">02 / Collect</p><h2 id="passport-title">A passport for<br> your matcha memories.</h2><p>Your future visits, in one place. The matcha passport is planned; visit tracking and stamps are not available yet.</p><a class="text-link" href="{% url 'profile' %}">Keep your profile up to date <span aria-hidden="true">→</span></a></div>
+  <div class="passport-copy"><p class="eyebrow">02 / Collect</p><h2 id="passport-title">A passport for<br> your matcha memories.</h2><p>{% if total %}You've logged {{ total }} check-in{{ total|pluralize }} across {{ cafes }} café{{ cafes|pluralize }}.{% else %}Your passport is empty. Log your first café visit to start collecting.{% endif %}</p>{% if recent %}<ul class="recent-list">{% for c in recent %}<li><strong>{{ c.cafe.name }}</strong> · {{ c.drink_name }} · {{ c.rating }}/5</li>{% endfor %}</ul>{% endif %}<p><a class="button" href="{% url 'checkin_create' %}">New check-in <span aria-hidden="true">+</span></a> <a class="text-link" href="{% url 'checkin_list' %}">View all check-ins <span aria-hidden="true">→</span></a></p></div>
 </section>
 {% endblock %}
