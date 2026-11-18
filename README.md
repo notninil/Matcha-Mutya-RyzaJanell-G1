@@ -97,13 +97,13 @@ An Explorer records a visit to a café: the drink they tried, a 1-5 rating, an o
 Load the sample cafés and check-ins with:
 
 ```text
-python manage.py <demo_command_name>
+python manage.py seed_demo
 ```
 
 | Role | Username | Password |
 |---|---|---|
-| Explorer | `<explorer_username>` | provided separately |
-| Café Owner | `<owner_username>` | provided separately |
+| Explorer | `explorer_demo` | `Matcha!demo-2026` |
+| Café Owner | `owner_demo` | `Matcha!demo-2026` |
 
 ## Branching
 
