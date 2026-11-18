@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Matcha passport / Delete</p><h1>Delete this check-in?</h1><p class="intro">{{ checkin.drink_name }} at {{ checkin.cafe.name }} on {{ checkin.visited_on|date:"M j, Y" }}. This can't be undone.</p></div></div>
+<form method="post" class="form-actions">{% csrf_token %}<button class="button danger" type="submit">Yes, delete it</button><a href="{% url 'checkin_list' %}">Keep it</a></form>
+{% endblock %}

@@ -20,7 +20,8 @@
       <a href="{% url 'explorer_dashboard' %}" {% if current == 'explorer_dashboard' %}aria-current="page"{% endif %}>Explorer dashboard</a>
     {% elif user.role == 'owner' %}
       <a href="{% url 'owner_dashboard' %}" {% if current == 'owner_dashboard' %}aria-current="page"{% endif %}>Owner dashboard</a>
-    {% endif %}
+    {% endif %}     
+    <a href="{% url 'checkin_list' %}" {% if current == 'checkin_list' or current == 'checkin_create' or current == 'checkin_update' or current == 'checkin_delete' %}aria-current="page"{% endif %}>Check-ins</a>
     <a href="{% url 'profile' %}" {% if current == 'profile' %}aria-current="page"{% endif %}>My profile</a>
     <form method="post" action="{% url 'logout' %}" class="logout-form">{% csrf_token %}<button class="button-quiet" type="submit">Log out <span aria-hidden="true">↗</span></button></form>
   {% else %}

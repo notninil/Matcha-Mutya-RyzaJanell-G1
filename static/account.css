@@ -159,3 +159,28 @@ dd {margin:.25rem 0 0;overflow-wrap:anywhere;font-size:.95rem;}
  .listing-empty {padding:2rem 1rem;}
  .access-denied {margin:1rem auto 3rem;}
 }
+
+/* Core feature: café check-ins */
+.visually-hidden {position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.stat-row {display:flex;gap:3rem;margin:0 0 2.5rem;padding:0;}
+.stat-row dt {font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:650;color:var(--muted);}
+.stat-row dd {margin:0;font:400 2.6rem/1.1 var(--serif);}
+.table-wrap {overflow-x:auto;border-top:1px solid var(--line);}
+.checkin-table {width:100%;border-collapse:collapse;font-size:.9rem;}
+.checkin-table th {text-align:left;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:.9rem 1rem .9rem 0;border-bottom:1px solid var(--line);}
+.checkin-table td {padding:1rem 1rem 1rem 0;border-bottom:1px solid var(--line);vertical-align:top;}
+.rating {font-weight:650;color:var(--warm);white-space:nowrap;}
+.row-actions {white-space:nowrap;}
+.row-actions a {margin-right:1rem;}
+.danger-link {color:var(--error);}
+.button.danger {background:var(--error);border-color:var(--error);}
+.checkin-form-section {max-width:40rem;}
+.form-field select,.form-field textarea {display:block;width:100%;min-height:48px;padding:.65rem .8rem;color:var(--ink);background:var(--white);border:1px solid #889580;border-radius:3px;font:inherit;}
+.form-field select:focus,.form-field textarea:focus {border-color:var(--forest);}
+.rating-field {border:0;margin:0;padding:0;}
+.rating-field legend {font-size:.85rem;font-weight:600;margin-bottom:.4rem;padding:0;}
+.rating-field ul {list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;}
+.rating-field label {display:inline-flex;align-items:center;gap:.4rem;min-height:44px;font-weight:400;}
+.recent-list {list-style:none;margin:1rem 0;padding:0;font-size:.9rem;}
+.owner-cafes {list-style:none;margin:0 0 1.5rem;padding:0;}
+.owner-cafes li {padding:1rem 0;border-bottom:1px solid var(--line);}
