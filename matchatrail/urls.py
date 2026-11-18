@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from django.views.generic import RedirectView
 from django.contrib.auth.views import LogoutView
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path("dashboard/", dashboard, name="dashboard"),
     path("dashboard/explorer/", explorer_dashboard, name="explorer_dashboard"),
     path("dashboard/owner/", owner_dashboard, name="owner_dashboard"),
+    path("checkins/", include("checkins.urls")),
 ]
