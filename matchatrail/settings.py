@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import dj_database_url
 
 from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
@@ -36,20 +37,18 @@ TEMPLATES = [{
         "django.contrib.messages.context_processors.messages",
     ]},
 }]
-DATABASES = {"default": {
-    "ENGINE": "django.db.backends.postgresql",
-    "NAME": os.getenv("POSTGRES_DB", "matchatrail"),
-    "USER": os.getenv("POSTGRES_USER", "matchatrail"),
-    "PASSWORD": os.getenv("POSTGRES_PASSWORD", ""),
-    "HOST": os.getenv("POSTGRES_HOST", "127.0.0.1"),
-    "PORT": os.getenv("POSTGRES_PORT", "5432"),
-    "OPTIONS": {"sslmode": os.getenv("POSTGRES_SSLMODE", "prefer")},
-}}
 if os.getenv("DJANGO_USE_SQLITE") == "1":
     DATABASES = {"default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }}
+else:
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    if not DATABASE_URL:
+        raise ImproperlyConfigured("Set DATABASE_URL in .env (or DJANGO_USE_SQLITE=1).")
+    DATABASES = {"default": dj_database_url.parse(
+        DATABASE_URL, conn_max_age=60, conn_health_checks=True, ssl_require=True,
+    )}
 AUTH_USER_MODEL = "accounts.User"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
