@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Explorer / Matcha passport</p><h1>My check-ins</h1><p class="intro">Every café you've visited, the drink you tried, and how it went.</p></div><a class="button" href="{% url 'checkin_create' %}">New check-in <span aria-hidden="true">+</span></a></div>
+<dl class="stat-row"><div><dt>Check-ins</dt><dd>{{ stats.total }}</dd></div><div><dt>Cafés visited</dt><dd>{{ stats.cafes }}</dd></div></dl>
+{% if checkins %}
+<div class="table-wrap"><table class="checkin-table">
+  <caption class="visually-hidden">Your café check-ins</caption>
+  <thead><tr><th scope="col">Date</th><th scope="col">Café</th><th scope="col">Drink</th><th scope="col">Rating</th><th scope="col">Notes</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+  <tbody>
+  {% for c in checkins %}
+  <tr><td>{{ c.visited_on|date:"M j, Y" }}</td><td>{{ c.cafe.name }}<br><span class="muted">{{ c.cafe.city }}</span></td><td>{{ c.drink_name }}</td><td><span class="rating" aria-label="{{ c.rating }} out of 5">{{ c.rating }}/5</span></td><td>{{ c.notes|default:"—"|truncatechars:80 }}</td>
+  <td class="row-actions"><a href="{% url 'checkin_update' c.pk %}">Edit</a> <a class="danger-link" href="{% url 'checkin_delete' c.pk %}">Delete</a></td></tr>
+  {% endfor %}
+  </tbody></table></div>
+{% else %}
+<div class="discovery-empty"><span class="empty-rule" aria-hidden="true"></span><p class="empty-title">Your passport is still blank.</p><p>Log your first café visit to start your matcha trail.</p><a class="button" href="{% url 'checkin_create' %}">Add your first check-in</a></div>
+{% endif %}
+{% endblock %}
